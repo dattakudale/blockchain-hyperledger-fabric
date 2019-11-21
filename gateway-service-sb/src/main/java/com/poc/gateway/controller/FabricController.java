@@ -1,8 +1,12 @@
 package com.poc.gateway.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.poc.gateway.service.FabricService;
 
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,19 +15,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RestController
 public class FabricController{
 
+    @Autowired
+    private FabricService fabricService;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public @ResponseBody String sampleApi(){
+    public @ResponseBody String sampleApi() throws Exception{
         return "Sample REST API";
     }
 
     @RequestMapping(value = "/submitTransaction", method = RequestMethod.POST)
-    public @ResponseBody String submitTransaction(){
-        return "Submit Transaction API";
+    public @ResponseBody String submitTransaction(@RequestBody String asset) throws Exception{
+        return fabricService.createTradeTsAsset(asset , "");
     }
 
     @RequestMapping(value = "/queryTransaction", method = RequestMethod.POST)
-    public @ResponseBody String queryTransaction(){
-        return "Query Transaction API";
+    public @ResponseBody String queryTransaction(@RequestBody String value) throws Exception{
+        return fabricService.readTradeTsAsset(value);
     }
 
 }
