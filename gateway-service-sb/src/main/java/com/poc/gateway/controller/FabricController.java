@@ -18,11 +18,6 @@ public class FabricController{
     @Autowired
     private FabricService fabricService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public @ResponseBody String sampleApi() throws Exception{
-        return "Sample REST API";
-    }
-
     @RequestMapping(value = "/submitTransaction", method = RequestMethod.POST)
     public @ResponseBody String submitTransaction(@RequestBody String asset) throws Exception{
         return fabricService.createTradeTsAsset(asset , "");
