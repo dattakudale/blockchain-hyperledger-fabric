@@ -1,7 +1,5 @@
 package com.poc.gateway.service;
 
-import java.util.List;
-
 import com.poc.gateway.service.model.TradeAsset;
 import com.poc.gateway.service.model.TradeAssets;
 
