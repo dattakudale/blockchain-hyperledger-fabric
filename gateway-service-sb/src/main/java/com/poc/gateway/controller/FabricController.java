@@ -33,7 +33,7 @@ public class FabricController {
         return tradeService.readTradeTsAsset(tradeId);
     }
 
-    @RequestMapping(value = "/readAllTrades", method = RequestMethod.POST)
+    @RequestMapping(value = "/readAllTrades", method = RequestMethod.GET)
     public @ResponseBody TradeAssetsResponseDTO readAllTradeTsAsset() throws Exception {
         return tradeService.readAllTradeTsAsset();
     }
