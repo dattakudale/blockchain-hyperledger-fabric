@@ -5,7 +5,7 @@
 import { Context, Contract, Info, Returns, Transaction } from 'fabric-contract-api';
 import { TradeTsAsset } from './trade-ts-asset';
 
-@Info({title: 'TradeTsAssetContract', description: 'My Smart Contract' })
+@Info({ title: 'TradeTsAssetContract', description: 'My Smart Contract' })
 export class TradeTsAssetContract extends Contract {
 
     @Transaction(false)
@@ -16,13 +16,14 @@ export class TradeTsAssetContract extends Contract {
     }
 
     @Transaction()
-    public async createTradeTsAsset(ctx: Context, tradeTsAssetId: string, value: string): Promise<void> {
+    public async createTradeTsAsset(ctx: Context, tradeTsAssetId: string, tradeDescription: string, price: number): Promise<void> {
         const exists = await this.tradeTsAssetExists(ctx, tradeTsAssetId);
         if (exists) {
             throw new Error(`The trade ts asset ${tradeTsAssetId} already exists`);
         }
         const tradeTsAsset = new TradeTsAsset();
-        tradeTsAsset.value = value;
+        tradeTsAsset.tradeDescription = tradeDescription;
+        tradeTsAsset.price = price;
         const buffer = Buffer.from(JSON.stringify(tradeTsAsset));
         await ctx.stub.putState(tradeTsAssetId, buffer);
     }
@@ -39,14 +40,61 @@ export class TradeTsAssetContract extends Contract {
         return tradeTsAsset;
     }
 
+    @Transaction(false)
+    @Returns('TradeTsAsset[]')
+    public async readAllTradeTsAsset(ctx: Context): Promise<TradeTsAsset[]> {
+        const allResults = [];
+
+        const queryString = {
+            selector: {},
+        };
+
+        const resultsIterator = await ctx.stub.getQueryResult(JSON.stringify(queryString));
+
+        while (true) {
+
+            const res = await resultsIterator.next();
+            if (res.value && res.value.value.toString()) {
+
+                const strValue = res.value.value.toString('utf8');
+
+                console.info('TradeTsAsset Key :' + res.value.key);
+                console.log('TradeTsAsset Value :' + strValue);
+
+                let tradeTsAsset;
+                try {
+                    tradeTsAsset = JSON.parse(strValue) as TradeTsAsset;
+                } catch (err) {
+                    console.log(err);
+                    tradeTsAsset = strValue;
+                }
+                console.info('TradeTsAsset :' + tradeTsAsset);
+                allResults.push({ Key: res.value.key, Record: tradeTsAsset });
+            }
+
+            if (res.done) {
+                console.log('end of data');
+                await resultsIterator.close();
+                console.info('TradeTsAsset list : ' + allResults);
+                return allResults;
+            }
+        }
+
+        console.info('TradeTsAsset list : ' + allResults);
+        return allResults;
+    }
+
     @Transaction()
-    public async updateTradeTsAsset(ctx: Context, tradeTsAssetId: string, newValue: string): Promise<void> {
+    public async updateTradeTsAsset(ctx: Context, tradeTsAssetId: string, price: number): Promise<void> {
         const exists = await this.tradeTsAssetExists(ctx, tradeTsAssetId);
         if (!exists) {
             throw new Error(`The trade ts asset ${tradeTsAssetId} does not exist`);
         }
-        const tradeTsAsset = new TradeTsAsset();
-        tradeTsAsset.value = newValue;
+
+        // Read existing object and update new price
+        const bufferRead = await ctx.stub.getState(tradeTsAssetId);
+        const tradeTsAsset = JSON.parse(bufferRead.toString()) as TradeTsAsset;
+        tradeTsAsset.price = price;
         const buffer = Buffer.from(JSON.stringify(tradeTsAsset));
         await ctx.stub.putState(tradeTsAssetId, buffer);
     }

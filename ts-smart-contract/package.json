@@ -1,6 +1,6 @@
 {
     "name": "ts-smart-contract",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "My Smart Contract",
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
