@@ -38,7 +38,7 @@
     mvn clean install
     ```
 
-## 3. **gateway-service-sb** Spring Boot Service
+## 3. **gateway-service-sb** : Spring Boot Service
 
 * Export the Wallet from IBM Blockchain Platform extension
     ```
