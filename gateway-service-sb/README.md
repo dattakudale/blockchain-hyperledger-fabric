@@ -23,10 +23,9 @@ Gateway Service in Spring Boot App
 
     docker network list
 
-    docker connect <fabric network> <container id>
+    docker network connect <fabric network> <container id>
 
 
 ## Swagger Document for REST API
     http://localhost:8080/swagger-ui.html
-
 

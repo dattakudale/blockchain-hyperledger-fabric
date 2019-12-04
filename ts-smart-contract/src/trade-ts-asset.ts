@@ -8,6 +8,9 @@ import { Object, Property } from 'fabric-contract-api';
 export class TradeTsAsset {
 
     @Property()
-    public value: string;
+    public tradeDescription: string;
+
+    @Property()
+    public price: number;
 
 }
