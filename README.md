@@ -1,11 +1,15 @@
 # Hyperledger Fabric Cloud based project 
 
 ## Project details
-* ***ts-smart-contract*** : Hyperledger Fabric Smart contract in type script
-* ***gateway-ui*** : Angular 8 UI code 
-* ***gateway-service-sb*** : Spring Boot Service with UI code 
+* **ts-smart-contract** : Hyperledger Fabric Smart contract in type script
+* **gateway-ui** : Angular 8 UI code 
+* **gateway-service-sb** : Spring Boot Service with UI code 
 
-## 1. ***ts-smart-contract*** : Installation of Smart Contract 
+## Clone the project 
+
+    git clone https://github.com/dkudale/blockchain-hyperledger-fabric.git
+
+## 1. **ts-smart-contract** : Installation of Smart Contract 
 * Install the IBM Blockchain Platform in Visual code
     ```
     1. Search IBM Blockchain Platform extension and install in Visual code
@@ -26,7 +30,7 @@
     
     2. Execute Evaluate Transaction using "readTradeAsset" method
     ```
-## 2. ***gateway-ui*** : Gateway UI with Angular 8 
+## 2. **gateway-ui** : Gateway UI with Angular 8 
 
 * Build with maven
     ```
@@ -34,7 +38,7 @@
     mvn clean install
     ```
 
-## 3. ***gateway-service-sb*** Spring Boot Service
+## 3. **gateway-service-sb** Spring Boot Service
 
 * Export the Wallet from IBM Blockchain Platform extension
     ```
