@@ -22,11 +22,13 @@ Hyperledger Fabric Cloud based project
         Execute Evaluate Transaction using "readTradeAsset" method
 
 ## Gateway UI with Angular 
-Build the Angular 8 code with maven
-    cd gateway-ui
-    mvn clean install
+Angular 8 code 
 
-## gateway-service-sb
+    ## Build with maven
+        cd gateway-ui
+        mvn clean install
+
+## Spring Boot Service
 Gateway Service in Spring Boot App
 
     ## Export the Wallet from IBM Blockchain Platform extension
@@ -35,6 +37,7 @@ Gateway Service in Spring Boot App
         Select the "gateway-service-sb" folder
 
     ## Build with maven and will copy Angular UI code in Jar file.
+        cd gateway-service-sb
         mvn clean install
 
     ## Docker Build command
