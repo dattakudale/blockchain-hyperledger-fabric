@@ -1,5 +1,6 @@
 package com.poc.gateway.service.impl;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class TradeServiceImpl implements ITradeService {
 
+    private long tradeId=1;
+
     @Autowired
     private IFabricService fabricService;
 
@@ -26,30 +29,53 @@ public class TradeServiceImpl implements ITradeService {
 
         TradeAsset tradeAsset = new TradeAsset();
         tradeAsset.setTradeId(tradeAssetRequestDTO.getTradeId());
+        tradeAsset.setAccount(tradeAssetRequestDTO.getAccount());
+        tradeAsset.setExchange(tradeAssetRequestDTO.getExchange());
+        tradeAsset.setContract(tradeAssetRequestDTO.getContract());
+        tradeAsset.setPutCall(tradeAssetRequestDTO.getPutCall());
+        tradeAsset.setMonth(tradeAssetRequestDTO.getMonth());
+        tradeAsset.setYear(tradeAssetRequestDTO.getYear());
+        tradeAsset.setStrike(tradeAssetRequestDTO.getStrike());
+        tradeAsset.setQuantity(tradeAssetRequestDTO.getQuantity());
+        tradeAsset.setBuySell(tradeAssetRequestDTO.getBuySell());
         tradeAsset.setTradeDescription(tradeAssetRequestDTO.getTradeDescription());
-        tradeAsset.setPrice(tradeAssetRequestDTO.getPrice());
 
-        return fabricService.createTradeTsAsset(tradeAsset);
+        if( tradeAsset.getTradeId() == null){
+            tradeAsset.setTradeId(BigInteger.valueOf(tradeId++));
+            return fabricService.createTradeTsAsset(tradeAsset);
+        }else{
+            return fabricService.updateTradeTsAsset(tradeAsset);
+        }
+
     }
 
     @Override
-    public boolean updateTradeTsAsset(TradeAssetRequestDTO tradeAssetRequestDTO) throws Exception {
-
-        return fabricService.updateTradeTsAsset(tradeAssetRequestDTO.getTradeId(), tradeAssetRequestDTO.getPrice());
-    }
-
-    @Override
-    public TradeAssetResponseDTO readTradeTsAsset(Long tradeId) throws Exception {
+    public TradeAssetResponseDTO readTradeTsAsset(BigInteger tradeId) throws Exception {
 
         TradeAssetResponseDTO responseDTO = new TradeAssetResponseDTO();
 
         TradeAsset tradeAsset = fabricService.readTradeTsAsset(tradeId);
 
         responseDTO.setTradeId(tradeAsset.getTradeId());
+        responseDTO.setAccount(tradeAsset.getAccount());
+        responseDTO.setExchange(tradeAsset.getExchange());
+        responseDTO.setContract(tradeAsset.getContract());
+        responseDTO.setPutCall(tradeAsset.getPutCall());
+        responseDTO.setMonth(tradeAsset.getMonth());
+        responseDTO.setYear(tradeAsset.getYear());
+        responseDTO.setStrike(tradeAsset.getStrike());
+        responseDTO.setQuantity(tradeAsset.getQuantity());
+        responseDTO.setBuySell(tradeAsset.getBuySell());
         responseDTO.setTradeDescription(tradeAsset.getTradeDescription());
-        responseDTO.setPrice(tradeAsset.getPrice());
 
         return responseDTO;
+    }
+
+    @Override
+    public boolean deleteTradeTsAsset(BigInteger tradeId) throws Exception {
+
+        return fabricService.deleteTradeTsAsset(tradeId);
+
     }
 
     @Override
@@ -64,9 +90,17 @@ public class TradeServiceImpl implements ITradeService {
 
             if (obj != null && obj.getRecord() != null) {
                 TradeAssetResponseDTO responseDTO = new TradeAssetResponseDTO();
-                responseDTO.setTradeId(Long.valueOf(obj.getKey()));
+                responseDTO.setTradeId(BigInteger.valueOf(Long.valueOf(obj.getKey())));
+                responseDTO.setAccount(obj.getRecord().getAccount());
+                responseDTO.setExchange(obj.getRecord().getExchange());
+                responseDTO.setContract(obj.getRecord().getContract());
+                responseDTO.setPutCall(obj.getRecord().getPutCall());
+                responseDTO.setMonth(obj.getRecord().getMonth());
+                responseDTO.setYear(obj.getRecord().getYear());
+                responseDTO.setStrike(obj.getRecord().getStrike());
+                responseDTO.setQuantity(obj.getRecord().getQuantity());
+                responseDTO.setBuySell(obj.getRecord().getBuySell());
                 responseDTO.setTradeDescription(obj.getRecord().getTradeDescription());
-                responseDTO.setPrice(obj.getRecord().getPrice());
 
                 tradeAssets.add(responseDTO);
             }

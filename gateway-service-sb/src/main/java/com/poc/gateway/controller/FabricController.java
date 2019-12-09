@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigInteger;
+
 import com.poc.gateway.dto.request.TradeAssetRequestDTO;
 import com.poc.gateway.dto.response.TradeAssetResponseDTO;
 import com.poc.gateway.dto.response.TradeAssetsResponseDTO;
@@ -29,8 +31,13 @@ public class FabricController {
     }
 
     @RequestMapping(value = "/readTrade", method = RequestMethod.POST)
-    public @ResponseBody TradeAssetResponseDTO queryTransaction(@RequestBody Long tradeId) throws Exception {
+    public @ResponseBody TradeAssetResponseDTO queryTransaction(@RequestBody BigInteger tradeId) throws Exception {
         return tradeService.readTradeTsAsset(tradeId);
+    }
+
+    @RequestMapping(value = "/deleteTrade", method = RequestMethod.POST)
+    public @ResponseBody String deleteTransaction(@RequestBody BigInteger tradeId) throws Exception {
+        return "" + tradeService.deleteTradeTsAsset(tradeId);
     }
 
     @RequestMapping(value = "/readAllTrades", method = RequestMethod.GET)

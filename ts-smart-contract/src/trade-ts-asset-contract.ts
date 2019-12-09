@@ -16,15 +16,13 @@ export class TradeTsAssetContract extends Contract {
     }
 
     @Transaction()
-    public async createTradeTsAsset(ctx: Context, tradeTsAssetId: string, tradeDescription: string, price: number): Promise<void> {
+    public async createTradeTsAsset(ctx: Context, tradeTsAssetId: string, tradeJson: string): Promise<void> {
         const exists = await this.tradeTsAssetExists(ctx, tradeTsAssetId);
         if (exists) {
             throw new Error(`The trade ts asset ${tradeTsAssetId} already exists`);
         }
-        const tradeTsAsset = new TradeTsAsset();
-        tradeTsAsset.tradeDescription = tradeDescription;
-        tradeTsAsset.price = price;
-        const buffer = Buffer.from(JSON.stringify(tradeTsAsset));
+
+        const buffer = Buffer.from(JSON.stringify(tradeJson));
         await ctx.stub.putState(tradeTsAssetId, buffer);
     }
 
@@ -85,16 +83,13 @@ export class TradeTsAssetContract extends Contract {
     }
 
     @Transaction()
-    public async updateTradeTsAsset(ctx: Context, tradeTsAssetId: string, price: number): Promise<void> {
+    public async updateTradeTsAsset(ctx: Context, tradeTsAssetId: string, tradeJson: string): Promise<void> {
         const exists = await this.tradeTsAssetExists(ctx, tradeTsAssetId);
         if (!exists) {
             throw new Error(`The trade ts asset ${tradeTsAssetId} does not exist`);
         }
 
-        // Read existing object and update new price
-        const bufferRead = await ctx.stub.getState(tradeTsAssetId);
-        const tradeTsAsset = JSON.parse(bufferRead.toString()) as TradeTsAsset;
-        tradeTsAsset.price = price;
+        const tradeTsAsset = JSON.parse(tradeJson) as TradeTsAsset;
         const buffer = Buffer.from(JSON.stringify(tradeTsAsset));
         await ctx.stub.putState(tradeTsAssetId, buffer);
     }
