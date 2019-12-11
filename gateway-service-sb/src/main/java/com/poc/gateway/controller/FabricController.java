@@ -1,6 +1,7 @@
 package com.poc.gateway.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,8 +36,8 @@ public class FabricController {
         return tradeService.readTradeTsAsset(tradeId);
     }
 
-    @RequestMapping(value = "/deleteTrade", method = RequestMethod.POST)
-    public @ResponseBody String deleteTransaction(@RequestBody BigInteger tradeId) throws Exception {
+    @RequestMapping(value = "/deleteTrade/{id}", method = RequestMethod.GET)
+    public @ResponseBody String deleteTransaction(@PathVariable(value = "id") BigInteger tradeId) throws Exception {
         return "" + tradeService.deleteTradeTsAsset(tradeId);
     }
 

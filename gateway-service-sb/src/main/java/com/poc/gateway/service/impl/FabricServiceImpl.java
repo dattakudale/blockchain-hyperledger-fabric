@@ -185,7 +185,7 @@ public class FabricServiceImpl implements IFabricService{
 			Contract contract = network.getContract(contractName);
 
 			// Evaluate transactions that query state from the ledger.
-			byte[] queryTradeTsResult = contract.evaluateTransaction("deleteTradeTsAsset", tradeId.toString());
+			byte[] queryTradeTsResult = contract.submitTransaction("deleteTradeTsAsset", tradeId.toString());
 			String output = new String(queryTradeTsResult, StandardCharsets.UTF_8);
 			System.out.println("deleteTradeTsAsset completed : " + output);
 

@@ -6,7 +6,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   MatInputModule, MatButtonModule, MatSelectModule, MatIconModule,
   MatRadioModule, MatCardModule, MatMenuModule, MatToolbarModule, MatCheckboxModule,
-  MatExpansionModule, MatListModule, MatTableModule, MatDialogModule
+  MatExpansionModule, MatListModule, MatTableModule, MatDialogModule, MatPaginatorModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -50,6 +50,7 @@ import { EdittradeComponent } from './components/edittrade/edittrade.component';
     MatRadioModule,
     FlexLayoutModule,
     ScrollingModule,
+    MatPaginatorModule,
 
     AppRoutingModule
   ],

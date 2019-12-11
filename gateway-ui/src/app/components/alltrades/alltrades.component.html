@@ -1,1 +1,104 @@
-<p>alltrades works!</p>
+<div class="parent" fxLayout="column">
+  <div fxFlex class="left">
+    <mat-card class="box">
+      <mat-card-header>
+        <mat-card-title>Trades</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-card>
+          <a mat-button color="primary" routerLink="/addTrade">Add Trade</a>
+        </mat-card>
+        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+          <ng-container matColumnDef="tradeId">
+            <mat-header-cell *matHeaderCellDef > ID </mat-header-cell>
+            <mat-cell *matCellDef="let element" >
+              {{ element.tradeId }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="account">
+            <mat-header-cell *matHeaderCellDef > Account </mat-header-cell>
+            <mat-cell *matCellDef="let element" >
+              {{ element.account }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="exchange">
+            <mat-header-cell *matHeaderCellDef > Exchange </mat-header-cell>
+            <mat-cell *matCellDef="let element" >
+              {{ element.exchange }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="contract">
+            <mat-header-cell *matHeaderCellDef > Contract </mat-header-cell>
+            <mat-cell *matCellDef="let element" >
+              {{ element.contract }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="putCall">
+            <mat-header-cell *matHeaderCellDef > Put/Call </mat-header-cell>
+            <mat-cell *matCellDef="let element" >
+              {{ element.putCall }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="month">
+            <mat-header-cell *matHeaderCellDef > Month/Year </mat-header-cell>
+            <mat-cell *matCellDef="let element" >
+              {{ element.month }}/{{ element.year }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="strike">
+            <mat-header-cell *matHeaderCellDef > Strike </mat-header-cell>
+            <mat-cell *matCellDef="let element" >
+              {{ element.strike }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="quantity">
+            <mat-header-cell *matHeaderCellDef > Quantity </mat-header-cell>
+            <mat-cell *matCellDef="let element" >
+              {{ element.quantity }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="buySell">
+            <mat-header-cell *matHeaderCellDef > Buy/Sell </mat-header-cell>
+            <mat-cell *matCellDef="let element" >
+              {{ element.buySell }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="tradeDescription">
+            <mat-header-cell *matHeaderCellDef > Trade Description </mat-header-cell>
+            <mat-cell *matCellDef="let element" >
+              {{ element.tradeDescription }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef > Action</mat-header-cell>
+            <mat-cell *matCellDef="let element" >
+              <button mat-button color="primary" (click)="editCard(element.tradeId)" >
+                Edit
+              </button>
+              <button mat-button color="primary" (click)="deleteCard(element.tradeId)" >
+                Delete
+              </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+
+        <mat-paginator [pageSizeOptions]="[5, 25, 50]" showFirstLastButtons></mat-paginator>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
