@@ -7,6 +7,14 @@
       <mat-card-content>
         <mat-card>
           <a mat-button color="primary" routerLink="/addTrade">Add Trade</a>
+
+          <mat-form-field>
+              <input
+                matInput
+                (keyup)="applyFilter($event.target.value)"
+                placeholder="Filter"
+              />
+            </mat-form-field>
         </mat-card>
         <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
