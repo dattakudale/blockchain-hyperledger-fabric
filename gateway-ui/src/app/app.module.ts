@@ -18,6 +18,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AddtradeComponent } from './components/addtrade/addtrade.component';
 import { EdittradeComponent } from './components/edittrade/edittrade.component';
+import { LoadingscreenComponent } from './components/loadingscreen/loadingscreen.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { EdittradeComponent } from './components/edittrade/edittrade.component';
     HeaderComponent,
     FooterComponent,
     AddtradeComponent,
-    EdittradeComponent
+    EdittradeComponent,
+    LoadingscreenComponent
   ],
   imports: [
     BrowserModule,

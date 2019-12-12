@@ -4,14 +4,17 @@ import { FormControl, FormGroup, FormBuilder, FormGroupDirective, NgForm, Valida
 import { Trade } from 'src/app/models/trade';
 import { Observable } from 'rxjs';
 import { TradeService } from 'src/app/services/trade.service';
+import { Alert } from 'src/app/models/alert';
 
 
 @Component({
   selector: 'app-addtrade',
   templateUrl: './addtrade.component.html',
-  styleUrls: ['./addtrade.component.sass']
+  styleUrls: ['./addtrade.component.scss']
 })
 export class AddtradeComponent implements OnInit {
+
+  alert = new Alert();
 
   trade: Trade;
   tradeObs: Observable<Trade>;
@@ -63,8 +66,7 @@ export class AddtradeComponent implements OnInit {
       tradeDescription: this.tradeDescription.value
     };
 
-    this.tradeService.addNewTrade(newTrade);
-
+    this.alert = this.tradeService.addNewTrade(newTrade);
   }
 
 }

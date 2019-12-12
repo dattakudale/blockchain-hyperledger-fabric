@@ -31,13 +31,13 @@ public class FabricController {
         return "" + success;
     }
 
-    @RequestMapping(value = "/readTrade", method = RequestMethod.POST)
-    public @ResponseBody TradeAssetResponseDTO queryTransaction(@RequestBody BigInteger tradeId) throws Exception {
+    @RequestMapping(value = "/getTradeDetail/{id}", method = RequestMethod.GET)
+    public @ResponseBody TradeAssetResponseDTO getTradeDetail(@PathVariable(value = "id") BigInteger tradeId) throws Exception {
         return tradeService.readTradeTsAsset(tradeId);
     }
 
     @RequestMapping(value = "/deleteTrade/{id}", method = RequestMethod.GET)
-    public @ResponseBody String deleteTransaction(@PathVariable(value = "id") BigInteger tradeId) throws Exception {
+    public @ResponseBody String deleteTrade(@PathVariable(value = "id") BigInteger tradeId) throws Exception {
         return "" + tradeService.deleteTradeTsAsset(tradeId);
     }
 

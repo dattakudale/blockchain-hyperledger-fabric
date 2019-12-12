@@ -1,3 +1,6 @@
+<br />
+<div *ngIf="alert" class="center">{{ alert.message }}</div>
+<br />
 
 <table width="70%" align="center">
 <mat-card>
@@ -103,7 +106,7 @@
         <tr>
           <td width="60%">
             <mat-form-field style="width: 350px;">
-              <input type="text" required matInput placeholder="TradeDescription" cols="50" [formControl]="tradeDescription"/>
+              <input type="text" required matInput placeholder="Trade Description" cols="50" [formControl]="tradeDescription"/>
               <mat-error *ngIf="tradeDescription.hasError('required')">
                 TradeDescription is <strong>required</strong>
               </mat-error>
