@@ -16,25 +16,6 @@ export class AlltradesComponent implements OnInit {
 
   trades: Observable<TradeAssets>;
 
-  test = {
-    "tradeAssets": [
-      {
-        "tradeId": 1,
-        "account": "AA",
-        "exchange": "EUREX",
-        "contract": "TCH",
-        "putCall": "PUT",
-        "month": 0,
-        "year": 0,
-        "strike": 0,
-        "quantity": 0,
-        "buySell": 0,
-        "tradeDescription": "TEST"
-      }
-    ]
-  };
-
-
   displayedColumns: string[] = ['tradeId', 'account', 'exchange', 'contract',
     'putCall', 'month', 'strike', 'quantity', 'buySell', 'tradeDescription', 'action'];
 
