@@ -1,0 +1,132 @@
+<br />
+<div *ngIf="alert" class="center">{{ alert.message }}</div>
+<br />
+
+<table width="70%" align="center">
+<mat-card>
+<div align="center" class="EditTrade" id="EditTrade">
+    <form  *ngIf="tradeObs | async; else loading" [formGroup]="form" (ngSubmit)="editTrade()">
+      <table align="center">
+        <tr>
+          <td width="60%">
+            <mat-form-field class="invisible">
+                <input matInput formControlName="tradeId" />
+            </mat-form-field>
+            <mat-form-field style="width: 350px;">
+              <input type="text" required matInput placeholder="Account" cols="50" formControlName="account"/>
+              <mat-error *ngIf="account.hasError('required')">
+                Account is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td width="60%">
+            <mat-form-field style="width: 350px;">
+              <input type="text" required matInput placeholder="Exchange" cols="50" formControlName="exchange"/>
+              <mat-error *ngIf="exchange.hasError('required')">
+                Exchange is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+
+        <tr>
+          <td width="60%">
+            <mat-form-field style="width: 350px;">
+              <input type="text" required matInput placeholder="Contract" cols="50" formControlName="contract"/>
+              <mat-error *ngIf="contract.hasError('required')">
+                Contract is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+
+        <tr>
+          <td width="60%">
+            <mat-form-field style="width: 350px;">
+              <input type="text" required matInput placeholder="Put/Call" cols="50" formControlName="putCall"/>
+              <mat-error *ngIf="putCall.hasError('required')">
+                Put/Call is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+
+        <tr>
+          <td width="60%">
+            <mat-form-field style="width: 350px;">
+              <input type="text" required matInput placeholder="Month" cols="50" formControlName="month"/>
+              <mat-error *ngIf="month.hasError('required')">
+                Month is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+
+        <tr>
+          <td width="60%">
+            <mat-form-field style="width: 350px;">
+              <input type="text" required matInput placeholder="Year" cols="50" formControlName="year"/>
+              <mat-error *ngIf="year.hasError('required')">
+                Year is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+
+        <tr>
+          <td width="60%">
+            <mat-form-field style="width: 350px;">
+              <input type="text" required matInput placeholder="Strike" cols="50" formControlName="strike"/>
+              <mat-error *ngIf="strike.hasError('required')">
+                Strike is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+
+        <tr>
+          <td width="60%">
+            <mat-form-field style="width: 350px;">
+              <input type="text" required matInput placeholder="Quantity" cols="50" formControlName="quantity"/>
+              <mat-error *ngIf="quantity.hasError('required')">
+                Quantity is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td width="60%">
+            <mat-form-field style="width: 350px;">
+              <input type="text" required matInput placeholder="BuySell" cols="50" formControlName="buySell"/>
+              <mat-error *ngIf="buySell.hasError('required')">
+                Buy/Sell is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td width="60%">
+            <mat-form-field style="width: 350px;">
+              <input type="text" required matInput placeholder="Trade Description" cols="50" formControlName="tradeDescription"/>
+              <mat-error *ngIf="tradeDescription.hasError('required')">
+                TradeDescription is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td width="50%">
+              <button type="submit" color="primary" mat-button>Save Trade</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</mat-card>
+</table>
+
+<ng-template #loading>
+    Loading Trade...
+</ng-template>

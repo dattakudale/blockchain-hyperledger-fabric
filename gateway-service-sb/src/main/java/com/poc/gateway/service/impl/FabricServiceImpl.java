@@ -1,6 +1,7 @@
 package com.poc.gateway.service.impl;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -75,8 +76,12 @@ public class FabricServiceImpl implements IFabricService{
 
 			Contract contract = network.getContract(contractName);
 
+			String tradeJson = JsonUtil.getObjectToJson(tradeAsset);
+
+			System.out.println("createTradeTsAsset tradeJson : " + tradeJson);
+
 			// Submit transactions that store state to the ledger.
-			byte[] createCarResult = contract.submitTransaction("createTradeTsAsset", tradeAsset.getTradeId().toString(), tradeAsset.getTradeDescription() , ( tradeAsset.getPrice() != null ? tradeAsset.getPrice().toString() : ""));
+			byte[] createCarResult = contract.submitTransaction("createTradeTsAsset", tradeAsset.getTradeId().toString(), tradeJson);
 			output = new String(createCarResult, StandardCharsets.UTF_8);
 			System.out.println("createTradeTsAsset completed : " + output);
 
@@ -96,7 +101,7 @@ public class FabricServiceImpl implements IFabricService{
 	 * @return
 	 * @throws Exception
 	 */
-	public boolean updateTradeTsAsset(Long tradeId , Double price) throws Exception {
+	public boolean updateTradeTsAsset(TradeAsset tradeAsset) throws Exception {
 
 		boolean success = false;
 
@@ -109,8 +114,10 @@ public class FabricServiceImpl implements IFabricService{
 
 			Contract contract = network.getContract(contractName);
 
+			String tradeJson = JsonUtil.getObjectToJson(tradeAsset);
+
 			// Submit transactions that store state to the ledger.
-			byte[] createCarResult = contract.submitTransaction("updateTradeTsAsset", tradeId.toString() , ( price != null ? price.toString() : ""));
+			byte[] createCarResult = contract.submitTransaction("updateTradeTsAsset", tradeAsset.getTradeId().toString() , tradeJson);
 			output = new String(createCarResult, StandardCharsets.UTF_8);
 			System.out.println("updateTradeTsAsset completed : " + output);
 
@@ -129,7 +136,7 @@ public class FabricServiceImpl implements IFabricService{
 	 * @return
 	 * @throws Exception
 	 */
-	public TradeAsset readTradeTsAsset(Long tradeId) throws Exception {
+	public TradeAsset readTradeTsAsset(BigInteger tradeId) throws Exception {
 
 		TradeAsset tradeAsset = null;
 
@@ -158,6 +165,36 @@ public class FabricServiceImpl implements IFabricService{
 		return tradeAsset;
 	}
 
+
+		/**
+	 * Read the trasaction
+	 * @param asset
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean deleteTradeTsAsset(BigInteger tradeId) throws Exception {
+
+		boolean success = false;
+
+		// Create a gateway connection
+		try (Gateway gateway = builder.connect()) {
+
+			// Obtain a smart contract deployed on the network.
+			Network network = gateway.getNetwork(channelName);
+
+			Contract contract = network.getContract(contractName);
+
+			// Evaluate transactions that query state from the ledger.
+			byte[] queryTradeTsResult = contract.submitTransaction("deleteTradeTsAsset", tradeId.toString());
+			String output = new String(queryTradeTsResult, StandardCharsets.UTF_8);
+			System.out.println("deleteTradeTsAsset completed : " + output);
+
+		} catch (ContractException e) {
+			e.printStackTrace();
+		}
+
+		return success;
+	}
 
 	/**
 	 * Read all transactions
