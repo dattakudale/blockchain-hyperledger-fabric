@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  title = 'Hyperledger Fabric Demo';
+  title = 'Hyperledger Fabric Distributed Ledger';
 
   constructor() { }
 

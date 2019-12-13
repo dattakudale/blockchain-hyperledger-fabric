@@ -5,7 +5,7 @@
 import { Context, Contract, Info, Returns, Transaction } from 'fabric-contract-api';
 import { TradeTsAsset } from './trade-ts-asset';
 
-@Info({ title: 'TradeTsAssetContract', description: 'My Smart Contract' })
+@Info({ title: 'TradeTsAssetContract', description: 'Trade Smart Contract' })
 export class TradeTsAssetContract extends Contract {
 
     @Transaction(false)
